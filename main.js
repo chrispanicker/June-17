@@ -147,7 +147,7 @@ letters.forEach((e, i)=>{
      let svgBody;
      if(canvas.clientWidth<1080){
         svgBody = Bodies.fromVertices(
-            canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/7*4,
+            canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/3,
             [vertices],
             {
                 render:{
@@ -157,7 +157,7 @@ letters.forEach((e, i)=>{
          )
      }else{
         svgBody = Bodies.fromVertices(
-            canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/2,
+            canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/5*2,
             [vertices],
             {
                 render:{
@@ -204,14 +204,14 @@ var startPin, endPin;
 
 if(canvas.clientWidth<1080){
     startPin = Constraint.create({
-        pointA: { x: 50, y: canvas.clientHeight/3},
+        pointA: { x: 50, y: canvas.clientHeight/4},
         bodyB: letters[0],
         pointB: { x: -10, y: -10 },
         damping: 1,
     });
     
    endPin = Constraint.create({
-        pointA: { x: canvas.clientWidth-50, y: canvas.clientHeight/3},
+        pointA: { x: canvas.clientWidth-50, y: canvas.clientHeight/4},
         bodyB: letters[6],
         pointB: { x: -10, y: -10 },
         damping: 1,
