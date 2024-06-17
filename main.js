@@ -133,7 +133,7 @@ letters.forEach((e, i)=>{
     let scaleFactor
      let vertices = Svg.pathToVertices(e);
      if(canvas.clientWidth<1080){
-        scaleFactor = (800* .1)/100;
+        scaleFactor = (800* .2)/100;
      }else{
         scaleFactor = (800* .4)/100;
      }
@@ -149,17 +149,28 @@ letters.forEach((e, i)=>{
             }
         }
      )
+
      letters[i] = svgBody
+
+     Matter.Body.setMass(letters[i], 10)
      console.log(letters[i])
 })
 
 
 
 let thickness = 50;
-let boundTop = Bodies.rectangle(canvas.clientWidth/2, 0-thickness/2, canvas.clientWidth, thickness, { isStatic: true });
-let boundBot = Bodies.rectangle(canvas.clientWidth/2, canvas.clientHeight+thickness/2, canvas.clientWidth, thickness, { isStatic: true })
-let boundRight = Bodies.rectangle(canvas.clientWidth+thickness/2, canvas.clientHeight/2, thickness, canvas.clientHeight, { isStatic: true })
-let boundLeft = Bodies.rectangle(0-thickness/2, canvas.clientHeight/2, thickness, canvas.clientHeight, { isStatic: true })
+let boundTop = Bodies.rectangle(canvas.clientWidth/2, 0-thickness/2, canvas.clientWidth, thickness, { isStatic: true, render:{
+    fillStyle: "rgb(255, 247, 0)"
+}, })
+let boundBot = Bodies.rectangle(canvas.clientWidth/2, canvas.clientHeight+thickness/2-thickness, canvas.clientWidth, thickness, { isStatic: true, render:{
+    fillStyle: "rgb(255, 247, 0)"
+}, })
+let boundRight = Bodies.rectangle(canvas.clientWidth+thickness/2, canvas.clientHeight/2, thickness, canvas.clientHeight, { isStatic: true, render:{
+    fillStyle: "rgb(255, 247, 0)"
+}, })
+let boundLeft = Bodies.rectangle(0-thickness/2, canvas.clientHeight/2, thickness, canvas.clientHeight, { isStatic: true, render:{
+    fillStyle: "rgb(255, 247, 0)"
+}, })
 
 Composite.add(world, [
     // walls
