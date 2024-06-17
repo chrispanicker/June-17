@@ -66,8 +66,8 @@ engine.gravity.x=0
 engine.gravity.y= frontToBack
 
 function handleOrientation(event){
-    frontToBack = map(event.beta, -90, 90, -1, 1);
-    leftToRight = map(event.gamma, -90, 90, -1, 1);
+    frontToBack = map(event.beta, -40, 40, -1, 1);
+    leftToRight = map(event.gamma, -40, 40, -1, 1);
     engine.gravity.y= frontToBack
     engine.gravity.x= leftToRight
 }
