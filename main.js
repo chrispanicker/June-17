@@ -138,21 +138,35 @@ letters.forEach((e, i)=>{
     let scaleFactor
      let vertices = Svg.pathToVertices(e);
      if(canvas.clientWidth<1080){
-        scaleFactor = (800* .2)/100;
+        scaleFactor = (800* .1)/100;
      }else{
         scaleFactor = (800* .3)/100;
      }
 
      vertices = Vertices.scale(vertices,scaleFactor,scaleFactor);
-     let svgBody = Bodies.fromVertices(
-        canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/3,
-        [vertices],
-        {
-            render:{
-                fillStyle: `rgb(${(i+1)* 255/letters.length}, 255, 0)`
+     let svgBody;
+     if(canvas.clientWidth<1080){
+        svgBody = Bodies.fromVertices(
+            canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/7*4,
+            [vertices],
+            {
+                render:{
+                    fillStyle: `rgb(${(i+1)* 255/letters.length}, 255, 0)`
+                }
             }
-        }
-     )
+         )
+     }else{
+        svgBody = Bodies.fromVertices(
+            canvas.clientWidth/letters.length + canvas.clientWidth/letters.length*i +letterOffset, canvas.clientHeight/2,
+            [vertices],
+            {
+                render:{
+                    fillStyle: `rgb(${(i+1)* 255/letters.length}, 255, 0)`
+                }
+            }
+         )
+     }
+
 
      letters[i] = svgBody
 })
@@ -186,19 +200,38 @@ let boundLeft = Bodies.rectangle(0-thickness/2, canvas.clientHeight/2, thickness
     fillStyle: color2
 }, })
 
-var startPin = Constraint.create({
-    pointA: { x: 150, y: canvas.clientHeight/4 },
-    bodyB: letters[0],
-    pointB: { x: -10, y: -10 },
-    damping: 1,
-});
+var startPin, endPin;
 
-var endPin = Constraint.create({
-    pointA: { x: canvas.clientWidth-150, y: canvas.clientHeight/4 },
-    bodyB: letters[6],
-    pointB: { x: -10, y: -10 },
-    damping: 1,
-});
+if(canvas.clientWidth<1080){
+    startPin = Constraint.create({
+        pointA: { x: 50, y: canvas.clientHeight/3},
+        bodyB: letters[0],
+        pointB: { x: -10, y: -10 },
+        damping: 1,
+    });
+    
+   endPin = Constraint.create({
+        pointA: { x: canvas.clientWidth-50, y: canvas.clientHeight/3},
+        bodyB: letters[6],
+        pointB: { x: -10, y: -10 },
+        damping: 1,
+    });
+ }else{
+    startPin = Constraint.create({
+        pointA: { x: 50, y: canvas.clientHeight/4},
+        bodyB: letters[0],
+        pointB: { x: -10, y: -10 },
+        damping: 1,
+    });
+    
+    endPin = Constraint.create({
+        pointA: { x: canvas.clientWidth-50, y: canvas.clientHeight/4},
+        bodyB: letters[6],
+        pointB: { x: -10, y: -10 },
+        damping: 1,
+    });
+ } 
+
 
 
 // Composite.add(world, [bodyA, bodyB, constraint]);
